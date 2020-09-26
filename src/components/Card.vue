@@ -2,7 +2,7 @@
   <div>
     <b-col>
       <b-card
-        title="Card title"
+        :title="name"
         img-src="https://picsum.photos/600/300/?image=25"
         img-alt="Image"
         img-top
@@ -24,6 +24,9 @@
 <script>
 export default {
   name: "Card",
+  props: {
+    name: String,
+  },
 };
 </script>
 

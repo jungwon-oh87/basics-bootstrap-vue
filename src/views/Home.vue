@@ -1,10 +1,7 @@
 <template>
   <b-container>
     <b-row class="row">
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+      <Card v-for="d in myData" :key="d.id" :name="d.name" />
     </b-row>
   </b-container>
 </template>
@@ -13,8 +10,22 @@
 import Card from "@/components/Card";
 export default {
   name: "Home",
+  data() {
+    return { myData: [] };
+  },
   components: {
     Card,
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    async fetchData() {
+      const res = await fetch("data.json");
+      const val = await res.json();
+      this.myData = val;
+      // console.log(val);
+    },
   },
 };
 </script>
