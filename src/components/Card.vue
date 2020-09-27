@@ -7,7 +7,7 @@
         img-alt="Image"
         img-top
         tag="article"
-        style="max-width: 20rem;"
+        style="max-width: 18rem;"
         class="mb-2"
       >
         <b-card-text class="text-left"

@@ -1,8 +1,15 @@
 <template>
   <b-container>
     <b-row class="row">
-      <Card v-for="d in myData" :key="d.id" :name="d.name" />
+      <Card v-for="d in displayData" :key="d.id" :name="d.name" />
     </b-row>
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+      @input="paginate(currentPage)"
+    ></b-pagination>
   </b-container>
 </template>
 
@@ -11,7 +18,13 @@ import Card from "@/components/Card";
 export default {
   name: "Home",
   data() {
-    return { myData: [] };
+    return {
+      myData: [],
+      displayData: [],
+      currentPage: 1,
+      rows: 1,
+      perPage: 3,
+    };
   },
   components: {
     Card,
@@ -24,7 +37,13 @@ export default {
       const res = await fetch("data.json");
       const val = await res.json();
       this.myData = val;
+      this.displayData = val.slice(0, 3);
+      this.rows = this.myData.length;
       // console.log(val);
+    },
+    paginate(currentPage) {
+      const start = (currentPage - 1) * this.perPage;
+      this.displayData = this.myData.slice(start, start + 3);
     },
   },
 };
